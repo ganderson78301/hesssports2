@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hess Sports Group — Elevating Women in Professional Sport</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── DESIGN TOKENS ─── */
+    :root {
+      --bg:          #080808;
+      --bg-2:        #0f0f0f;
+      --bg-3:        #161616;
+      --border:      rgba(255,255,255,0.08);
+      --accent:      #0027FF;      /* vibrant chartreuse — matches their green kit */
+      --accent-dim:  rgba(0,39,255,0.12);
+      --text-primary:  #FFFFFF;
+      --text-secondary: #888888;
+      --text-muted:  #999999;
+      --radius-sm:   6px;
+      --radius-md:   14px;
+      --radius-lg:   24px;
+      --font-display: 'Bebas Neue', 'Arial Black', sans-serif;
+      --font-body:    'Inter', 'Helvetica Neue', sans-serif;
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; object-fit: cover; }
+
+    /* ─── UTILITY ─── */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(0,39,255,0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+    }
+    .tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    .display-heading {
+      font-family: var(--font-display);
+      line-height: 0.92;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 100px;
+      padding: 16px 32px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0,39,255,0.35);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 15px 32px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.04);
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee-wrap {
+      position: fixed;
+      left: 0; right: 0;
+      z-index: 99; /* just below nav (100) */
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      background: var(--bg-2);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 60px;
+      animation: marquee 28s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      white-space: nowrap;
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+    .marquee-item .dot {
+      width: 5px; height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(8,8,8,0.7);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-logo img {
+      height: 44px;
+      width: 44px;
+      object-fit: contain;
+    }
+    .nav-logo .name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+    .nav-logo .sub {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff !important;
+      font-weight: 700 !important;
+      padding: 10px 22px;
+      border-radius: 100px;
+      color: #fff;
+    }
+    .nav-cta:hover { opacity: 0.9; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+    /* Full-bleed portrait — positioned to keep footballer in frame */
+    .hero-portrait {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 38% center;
+      z-index: 0;
+      will-change: transform;
+      transform: scale(1.12) translateY(0px);
+      transform-origin: center center;
+    }
+    /* Gradient stack: blends image into dark bg — tuned for #778cff background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,  rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.60) 30%, rgba(8,8,8,0.05) 60%, transparent 100%),
+        linear-gradient(to top,    rgba(8,8,8,1.00) 0%, rgba(8,8,8,0.00) 38%),
+        linear-gradient(to bottom, rgba(8,8,8,0.50) 0%, rgba(8,8,8,0.00) 18%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 60px 80px;
+      max-width: 700px;
+    }
+    .hero-tag-row { margin-bottom: 32px; }
+    .hero-heading {
+      font-size: clamp(72px, 10vw, 150px);
+      font-family: var(--font-display);
+      line-height: 0.88;
+      letter-spacing: 0.01em;
+      margin-bottom: 40px;
+    }
+    .hero-heading em { font-style: normal; color: var(--accent); }
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .hero-desc {
+      max-width: 380px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-primary);
+    }
+    .hero-actions { display: flex; gap: 16px; flex-shrink: 0; }
+    .hero-scroll {
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-scroll span {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scroll-pulse 2s ease-in-out infinite;
+    }
+    @keyframes scroll-pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    /* Keep the old .hero-bg for orb layering */
+    .hero-bg { display: none; }
+    .hero-stat-strip {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      background: rgba(8,8,8,0.6);
+      backdrop-filter: blur(12px);
+    }
+    .hero-stat {
+      flex: 1;
+      padding: 24px 40px;
+      border-right: 1px solid var(--border);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat .num {
+      font-family: var(--font-display);
+      font-size: 40px;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .hero-stat .lbl {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* ─── ABOUT ─── */
+    .about {
+      padding: 140px 0;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-img-main {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--bg-3);
+    }
+    .about-img-main img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .about-img-main:hover img { transform: scale(1.04); }
+    .about-badge {
+      position: absolute;
+      bottom: -28px;
+      right: -28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      font-family: var(--font-display);
+    }
+    .about-badge .big { font-size: 52px; line-height: 1; }
+    .about-badge .small { font-size: 13px; letter-spacing: 0.06em; margin-top: 4px; }
+    .about-text {
+      padding-bottom: 28px;
+    }
+    .about-text .section-label { margin-bottom: 20px; }
+    .about-text h2 {
+      font-size: clamp(44px, 5vw, 72px);
+      font-family: var(--font-display);
+      line-height: 0.92;
+      margin-bottom: 28px;
+    }
+    .about-text p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .about-values {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 40px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .value-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .value-row:last-child { border-bottom: none; }
+    .value-row:hover { background: var(--bg-3); }
+    .value-icon {
+      width: 36px; height: 36px;
+      background: var(--accent-dim);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent);
+      font-size: 16px;
+    }
+    .value-row span {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+
+    /* ─── SPORTS ─── */
+    .sports {
+      padding: 100px 0;
+      background: var(--bg-2);
+    }
+    .sports-header {
+      margin-bottom: 60px;
+    }
+    .sports-header .section-label { margin-bottom: 16px; }
+    .sports-header h2 {
+      font-size: clamp(48px, 6vw, 88px);
+      font-family: var(--font-display);
+      line-height: 0.92;
+    }
+    .sports-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .sport-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-3);
+      cursor: pointer;
+      group: sport;
+    }
+    .sport-img {
+      aspect-ratio: 16/10;
+      overflow: hidden;
+    }
+    .sport-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .sport-card:hover .sport-img img { transform: scale(1.06); }
+    .sport-body {
+      padding: 36px;
+      background: linear-gradient(135deg, var(--bg-3), #1a1a1a);
+    }
+    .sport-chip {
+      display: inline-block;
+      background: var(--accent-dim);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      padding: 5px 14px;
+      margin-bottom: 16px;
+    }
+    .sport-body h3 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .sport-body p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+    .sport-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .sport-link .arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      background: var(--accent-dim);
+      border-radius: 50%;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .sport-card:hover .sport-link .arrow {
+      background: var(--accent);
+      color: #fff;
+      transform: translateX(4px);
+    }
+    .sport-meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 28px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+    .sport-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sport-meta-item .val {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+    .sport-meta-item .key {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    /* ─── MISSION STRIP ─── */
+    .mission-strip {
+      padding: 120px 0;
+      background: var(--accent);
+      overflow: hidden;
+      position: relative;
+    }
+    /* ::before replaced by .mission-parallax-text div for JS control */
+    .mission-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: #fff;
+    }
+    .mission-inner .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 24px;
+    }
+    .mission-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(52px, 8vw, 120px);
+      line-height: 0.9;
+      margin-bottom: 28px;
+    }
+    .mission-inner p {
+      max-width: 600px;
+      margin: 0 auto 48px;
+      font-size: 17px;
+      line-height: 1.7;
+      opacity: 0.7;
+    }
+    .mission-inner .btn-dark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #000;
+      color: var(--accent);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      padding: 16px 36px;
+      transition: opacity 0.2s;
+    }
+    .mission-inner .btn-dark:hover { opacity: 0.85; }
+
+    /* ─── VALUES GRID ─── */
+    .values {
+      padding: 140px 0;
+    }
+    .values-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: end;
+      margin-bottom: 80px;
+    }
+    .values-header h2 {
+      font-size: clamp(48px, 5.5vw, 80px);
+      font-family: var(--font-display);
+      line-height: 0.92;
+    }
+    .values-header p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      max-width: 420px;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .value-card {
+      background: var(--bg-2);
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: background 0.3s;
+    }
+    .value-card:hover { background: var(--bg-3); }
+    .value-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .value-card h3 {
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: 0.02em;
+    }
+    .value-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    /* ─── TEAM ─── */
+    .team {
+      padding: 100px 0;
+      background: var(--bg-2);
+    }
+    .team-header {
+      margin-bottom: 60px;
+    }
+    .team-header .section-label { margin-bottom: 16px; }
+    .team-header h2 {
+      font-size: clamp(48px, 5.5vw, 80px);
+      font-family: var(--font-display);
+      line-height: 0.92;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .team-card {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-3);
+      transition: transform 0.3s;
+    }
+    .team-card:hover { transform: translateY(-8px); }
+    .team-photo {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+    .team-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(20%);
+      transition: filter 0.4s, transform 0.5s;
+    }
+    .team-card:hover .team-photo img {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+    .team-info {
+      padding: 20px 22px;
+    }
+    .team-info .role {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .team-info h4 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact {
+      padding: 140px 0;
+    }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .contact-left .section-label { margin-bottom: 20px; }
+    .contact-left h2 {
+      font-size: clamp(48px, 5.5vw, 80px);
+      font-family: var(--font-display);
+      line-height: 0.92;
+      margin-bottom: 28px;
+    }
+    .contact-left p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: border-color 0.2s;
+    }
+    .contact-item:hover { border-color: rgba(0,39,255,0.3); }
+    .contact-icon {
+      width: 40px; height: 40px;
+      background: var(--accent-dim);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .contact-item-text .lbl {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    .contact-item-text .val {
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--text-muted); }
+    .form-group select option { background: var(--bg-2); }
+    .form-submit {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .form-submit .btn-primary { flex: 1; justify-content: center; }
+    .form-note {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      padding: 80px 0 40px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+    .footer-brand .name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+    .footer-brand .sub {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 280px;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .social-btn {
+      width: 36px; height: 36px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .social-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .footer-col h5 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-col ul a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--text-primary); }
+    .footer-bottom {
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom span {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .footer-bottom a {
+      font-size: 12px;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .footer-bottom a:hover { color: var(--text-primary); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .about-grid,
+      .contact-inner { grid-template-columns: 1fr; gap: 60px; }
+      .about-badge { bottom: 20px; right: 20px; }
+      .sports-grid { grid-template-columns: 1fr; }
+      .values-header { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 900px) {
+      .hero-content { padding: 0 32px 60px; max-width: 100%; }
+      .hero-portrait { object-position: 45% center; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .container { padding: 0 20px; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; }
+      .hero-scroll { display: none; }
+      .hero-stat-strip { flex-wrap: wrap; }
+      .hero-stat { min-width: 50%; }
+      .form-row { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    /* ─── FADE-IN ANIMATION ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── PARALLAX ─── */
+    /* Hero image: scaled up so drift never exposes edges */
+    .hero-img {
+      will-change: transform;
+      transform: scale(1.2) translateY(0px);
+      transform-origin: center top;
+    }
+    /* Section images: scaled so vertical drift stays in-crop */
+    .parallax-img {
+      will-change: transform;
+      transform: scale(1.18) translateY(0px);
+      transform-origin: center center;
+      transition: none !important; /* JS owns this */
+    }
+    /* Floating ambient orbs */
+    .parallax-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      will-change: transform;
+      filter: blur(80px);
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,39,255,0.18) 0%, transparent 70%);
+      top: 10%; left: -10%;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(0,39,255,0.10) 0%, transparent 70%);
+      top: 40%; right: -8%;
+    }
+    .orb-about {
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(0,39,255,0.08) 0%, transparent 70%);
+      bottom: 5%; right: -5%;
+      filter: blur(100px);
+    }
+    /* Mission strip parallax watermark (replaces ::before) */
+    .mission-parallax-text {
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 240px;
+      color: rgba(0,0,0,0.06);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+      will-change: transform;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <div class="nav-logo">
+      <img src="hess-logo.jpg" alt="Hess Sports Group" />
+      <div>
+        <div class="name">HESS SPORTS GROUP</div>
+        <div class="sub">Women's Football</div>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#sports">Our Clubs</a></li>
+      <li><a href="#values">Mission</a></li>
+      <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── MARQUEE ─── -->
+  <div class="marquee-wrap" id="marqueeBar">
+    <div class="marquee-track">
+      <!-- repeated twice for seamless loop -->
+      <div class="marquee-item"><span class="dot"></span>Women's Professional Football</div>
+      <div class="marquee-item"><span class="dot"></span>Waterford FC Women</div>
+      <div class="marquee-item"><span class="dot"></span>Acquiring Football Clubs</div>
+      <div class="marquee-item"><span class="dot"></span>Empowering Athletes</div>
+      <div class="marquee-item"><span class="dot"></span>Founded 2023</div>
+      <div class="marquee-item"><span class="dot"></span>Ireland &amp; Beyond</div>
+      <div class="marquee-item"><span class="dot"></span>Building Women's Football</div>
+      <div class="marquee-item"><span class="dot"></span>Women's Professional Football</div>
+      <div class="marquee-item"><span class="dot"></span>Waterford FC Women</div>
+      <div class="marquee-item"><span class="dot"></span>Acquiring Football Clubs</div>
+      <div class="marquee-item"><span class="dot"></span>Empowering Athletes</div>
+      <div class="marquee-item"><span class="dot"></span>Founded 2023</div>
+      <div class="marquee-item"><span class="dot"></span>Ireland &amp; Beyond</div>
+      <div class="marquee-item"><span class="dot"></span>Building Women's Football</div>
+    </div>
+  </div>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+
+    <!-- Full-bleed portrait -->
+    <img
+      id="heroImg"
+      class="hero-portrait"
+      src="hess-footballer-2.jpg"
+      alt="Hess Sports Group — Women's footballer in Waterford FC kit"
+    />
+
+    <!-- Gradient overlay for text legibility -->
+    <div class="hero-bg"></div>
+
+    <!-- Ambient orbs -->
+    <div class="parallax-orb orb-1" data-parallax-speed="-0.08"></div>
+    <div class="parallax-orb orb-2" data-parallax-speed="-0.12"></div>
+
+    <div class="hero-content">
+      <div class="hero-tag-row">
+        <span class="tag">Women's Football · Globally</span>
+      </div>
+      <h1 class="hero-heading">
+        ELEVATING<br/>
+        WOMEN IN<br/>
+        <em>SPORT.</em>
+      </h1>
+      <div class="hero-bottom">
+        <p class="hero-desc">
+          Hess Sports Group is building the world's most empowering environment for women in professional football — acquiring and growing clubs that champion equality on and off the pitch.
+        </p>
+        <div class="hero-actions">
+          <a href="#sports" class="btn-primary">
+            Our Sports
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#about" class="btn-secondary">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+
+    <div class="hero-stat-strip">
+      <div class="hero-stat"><div class="num">2+</div><div class="lbl">Football Clubs</div></div>
+      <div class="hero-stat"><div class="num">2023</div><div class="lbl">Founded</div></div>
+      <div class="hero-stat"><div class="num">100%</div><div class="lbl">Women's Football</div></div>
+      <div class="hero-stat"><div class="num">1st</div><div class="lbl">Women's Club in Waterford</div></div>
+    </div>
+
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="about" id="about" style="position:relative;overflow:hidden;">
+    <div class="parallax-orb orb-about" data-parallax-speed="-0.06"></div>
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual fade-up">
+          <div class="about-img-main" style="overflow:hidden;">
+            <img
+              src="hess-footballer-3.jpg"
+              alt="Hess Sports Group — Women's footballer celebrating"
+              loading="lazy"
+              class="parallax-img"
+              data-parallax-speed="0.14"
+            />
+          </div>
+          <div class="about-badge">
+            <div class="big">100%</div>
+            <div class="small">WOMEN'S FOOTBALL</div>
+          </div>
+        </div>
+        <div class="about-text fade-up">
+          <div class="section-label">Who We Are</div>
+          <h2>MORE THAN<br/>A FOOTBALL<br/>GROUP.</h2>
+          <p>
+            Hess Sports Group is a subsidiary of Hess Enterprises, dedicated exclusively to women's professional football. We acquire and grow football clubs — investing not just in winning, but in people, building long-term partnerships that develop careers, fund education, and create platforms for life beyond the game.
+          </p>
+          <p>
+            We believe that women's football deserves the same investment, infrastructure, and ambition as any elite club in the world. We're here to prove it.
+          </p>
+          <div class="about-values">
+            <div class="value-row">
+              <div class="value-icon">⚡</div>
+              <span>Long-term athlete partnerships &amp; career development</span>
+            </div>
+            <div class="value-row">
+              <div class="value-icon">🎓</div>
+              <span>Education pathways &amp; post-sport opportunities</span>
+            </div>
+            <div class="value-row">
+              <div class="value-icon">🌍</div>
+              <span>Sustainability, transparency &amp; social responsibility</span>
+            </div>
+            <div class="value-row">
+              <div class="value-icon">🏆</div>
+              <span>Setting new global standards in women's sport</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SPORTS ─── -->
+  <section class="sports" id="sports">
+    <div class="container">
+      <div class="sports-header fade-up">
+        <div class="section-label">What We Do</div>
+        <h2>OUR<br/>CLUBS.</h2>
+      </div>
+      <div class="sports-grid">
+
+        <!-- Club B -->
+        <div class="sport-card fade-up">
+          <div class="sport-img">
+            <img
+              src="hess-footballer-3.jpg"
+              alt="Football Club B"
+              loading="lazy"
+              class="parallax-img"
+              data-parallax-speed="0.16"
+            />
+          </div>
+          <div class="sport-body">
+            <span class="sport-chip">Women's Football</span>
+            <h3>FOOTBALL CLUB B</h3>
+            <p>
+              Hess Sports Group is actively acquiring and developing women's football clubs across Europe. Our next club acquisition will continue our mission of building world-class environments where female athletes can thrive, compete at the highest level, and build lasting legacies.
+            </p>
+            <a href="#contact" class="sport-link">
+              Get in Touch
+              <span class="arrow">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+            <div class="sport-meta">
+              <div class="sport-meta-item"><div class="val">TBC</div><div class="key">Location</div></div>
+              <div class="sport-meta-item"><div class="val">2025</div><div class="key">Target</div></div>
+              <div class="sport-meta-item"><div class="val">Pro</div><div class="key">League Level</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Football -->
+        <div class="sport-card fade-up">
+          <div class="sport-img">
+            <img
+              src="hess-footballer-2.jpg"
+              alt="Waterford FC Women"
+              loading="lazy"
+              class="parallax-img"
+              data-parallax-speed="0.16"
+            />
+          </div>
+          <div class="sport-body">
+            <span class="sport-chip">Women's Football</span>
+            <h3>WATERFORD FC WOMEN</h3>
+            <p>
+              Established in 2024, Waterford FC Women's is a historic first — the first ever female football club in Waterford, Ireland. Playing their inaugural season in 2025, the club is already becoming a symbol of what women's football can be when backed with genuine ambition and investment.
+            </p>
+            <a href="#contact" class="sport-link">
+              Learn More
+              <span class="arrow">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+            <div class="sport-meta">
+              <div class="sport-meta-item"><div class="val">2024</div><div class="key">Founded</div></div>
+              <div class="sport-meta-item"><div class="val">2025</div><div class="key">Debut Season</div></div>
+              <div class="sport-meta-item"><div class="val">1st</div><div class="key">In Waterford</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MISSION STRIP ─── -->
+  <section class="mission-strip">
+    <div class="mission-parallax-text" id="missionText">ELEVATE WOMEN'S SPORT</div>
+    <div class="container">
+      <div class="mission-inner fade-up">
+        <div class="eyebrow">Our Vision</div>
+        <h2>THE FUTURE<br/>IS WOMEN'S<br/>SPORT.</h2>
+        <p>
+          We aim to be a global leader in women's professional sport — setting new standards through equality, passion, and professionalism, creating lasting impact on the lives of athletes and communities worldwide.
+        </p>
+        <a href="#contact" class="btn-dark">
+          Partner With Us
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VALUES ─── -->
+  <section class="values" id="values">
+    <div class="container">
+      <div class="values-header fade-up">
+        <div>
+          <div class="section-label" style="margin-bottom:16px;">What We Stand For</div>
+          <h2>BUILT ON<br/>PRINCIPLES.</h2>
+        </div>
+        <p>
+          Everything we do at Hess Sports Group is rooted in a set of core values that guide how we build teams, support athletes, and grow the sport.
+        </p>
+      </div>
+      <div class="values-grid fade-up">
+        <div class="value-card">
+          <div class="value-num">01</div>
+          <h3>EMPOWERMENT</h3>
+          <p>We provide athletes with more than a contract — long-term career pathways, education, and platforms that last beyond the final whistle.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">02</div>
+          <h3>SUSTAINABILITY</h3>
+          <p>We build for the long-term. Sustainable structures, transparent finances, and responsible growth are non-negotiable at every level of our organisation.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">03</div>
+          <h3>EQUALITY</h3>
+          <p>Women's sport deserves elite-level investment and infrastructure. We're committed to closing the gap and setting a new benchmark for what's possible.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">04</div>
+          <h3>INNOVATION</h3>
+          <p>From commercial platforms to athlete development, we take a fresh approach to building successful enterprises from the ground up.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">05</div>
+          <h3>PASSION</h3>
+          <p>Sport is at the heart of everything. We bring genuine passion for the game, the athletes, and the communities our clubs call home.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">06</div>
+          <h3>COMMUNITY</h3>
+          <p>Our teams are rooted in their communities. From Waterford to the international stage, we create belonging and inspire the next generation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-left fade-up">
+          <div class="section-label">Get in Touch</div>
+          <h2>LET'S<br/>WORK<br/>TOGETHER.</h2>
+          <p>
+            Whether you're an athlete, sponsor, partner, or media — we'd love to hear from you. Hess Sports Group is always open to meaningful conversations that move women's sport forward.
+          </p>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">✉</div>
+              <div class="contact-item-text">
+                <div class="lbl">Email</div>
+                <div class="val">info@hesssportsgroup.com</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div class="contact-item-text">
+                <div class="lbl">Location</div>
+                <div class="val">Waterford, Ireland &amp; International</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📷</div>
+              <div class="contact-item-text">
+                <div class="lbl">Instagram</div>
+                <div class="val">@hesssportsgroup</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up">
+          <form class="contact-form" onsubmit="return false;">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" placeholder="Jane" />
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" placeholder="Smith" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="jane@example.com" />
+            </div>
+            <div class="form-group">
+              <label>Enquiry Type</label>
+              <select>
+                <option value="" disabled selected>Select a topic…</option>
+                <option>Sponsorship &amp; Partnerships</option>
+                <option>Athlete Enquiry</option>
+                <option>Media &amp; Press</option>
+                <option>General Enquiry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea rows="5" placeholder="Tell us about your enquiry…"></textarea>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn-primary">
+                Send Message
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="form-note">We typically respond within 1–2 business days.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="name">HESS SPORTS GROUP</div>
+          <div class="sub">A Hess Enterprises Company</div>
+          <p>Dedicated to acquiring and elevating women's football clubs worldwide. Building the next generation of champions on and off the pitch.</p>
+          <div class="footer-socials">
+            <a href="https://www.instagram.com/hesssportsgroup" target="_blank" class="social-btn" title="Instagram">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="social-btn" title="LinkedIn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg>
+            </a>
+            <a href="#" class="social-btn" title="Twitter / X">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Organisation</h5>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#values">Our Mission</a></li>
+            <li><a href="#sports">Our Clubs</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Our Clubs</h5>
+          <ul>
+            <li><a href="#sports">Waterford FC Women</a></li>
+            <li><a href="#sports">Football Club B</a></li>
+            <li><a href="#contact">Partnership Enquiries</a></li>
+            <li><a href="#contact">Media &amp; Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Hess Enterprises</h5>
+          <ul>
+            <li><a href="https://hess-enterprises.com" target="_blank">Parent Company</a></li>
+            <li><a href="#contact">Sponsor With Us</a></li>
+            <li><a href="#contact">Athlete Enquiries</a></li>
+            <li><a href="#contact">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Hess Sports Group. A subsidiary of Hess Enterprises.</span>
+        <div style="display:flex;gap:28px;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── SCROLL ANIMATIONS + PARALLAX ENGINE ─── -->
+  <script>
+    /* ── Position marquee flush below nav, offset hero ── */
+    function positionBars() {
+      const nav     = document.querySelector('nav');
+      const marquee = document.getElementById('marqueeBar');
+      const hero    = document.querySelector('.hero');
+      if (!nav || !marquee) return;
+
+      const navH     = nav.getBoundingClientRect().height;
+      const marqueeH = marquee.getBoundingClientRect().height;
+
+      // Snap marquee immediately below nav
+      marquee.style.top = navH + 'px';
+
+      // Push the hero down so it starts below both bars
+      if (hero) hero.style.marginTop = (navH + marqueeH) + 'px';
+    }
+
+    // Run on load and whenever fonts/images finish rendering
+    window.addEventListener('load', positionBars);
+    window.addEventListener('resize', positionBars);
+    positionBars(); // immediate best-effort run
+
+    /* ── Fade-up on scroll ── */
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 3) * 0.1}s`;
+      fadeObserver.observe(el);
+    });
+
+    /* ── Nav active state ── */
+    const sections   = document.querySelectorAll('section[id]');
+    const navLinks   = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.pageYOffset >= s.offsetTop - 120) current = s.getAttribute('id'); });
+      navLinks.forEach(l => { l.style.color = l.getAttribute('href') === `#${current}` ? 'var(--text-primary)' : ''; });
+    }, { passive: true });
+
+    /* ────────────────────────────────────────
+       PARALLAX ENGINE — requestAnimationFrame
+       ──────────────────────────────────────── */
+    const isMobile = () => window.innerWidth < 768;
+
+    // ── Hero portrait parallax ──
+    const heroImg = document.getElementById('heroImg');
+
+    // ── Section images with data-parallax-speed ──
+    const parallaxImgs = Array.from(document.querySelectorAll('.parallax-img[data-parallax-speed]'));
+
+    // ── Ambient orbs (both hero orbs + about orb) ──
+    const orbEls = Array.from(document.querySelectorAll('.parallax-orb[data-parallax-speed]'));
+
+    // ── Mission strip scrolling watermark ──
+    const missionText = document.getElementById('missionText');
+    const missionStrip = missionText ? missionText.closest('.mission-strip') : null;
+
+    let scrollY = window.pageYOffset;
+    let ticking = false;
+
+    function getSpeed(el) {
+      return parseFloat(el.dataset.parallaxSpeed || 0.15);
+    }
+
+    // Calculate offset relative to the center of the viewport
+    function sectionOffset(el, speed) {
+      const rect   = el.getBoundingClientRect();
+      const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+      return center * speed;
+    }
+
+    function applyParallax() {
+      if (isMobile()) return; // disable on mobile for performance
+
+      scrollY = window.pageYOffset;
+
+      // 1. Hero portrait — drifts up as user scrolls away
+      if (heroImg) {
+        const drift = scrollY * 0.38;
+        heroImg.style.transform = `scale(1.12) translateY(${drift}px)`;
+      }
+
+      // 2. Section images — depth effect
+      parallaxImgs.forEach(img => {
+        const speed  = getSpeed(img);
+        const offset = sectionOffset(img, speed);
+        img.style.transform = `scale(1.18) translateY(${offset}px)`;
+      });
+
+      // 3. Ambient orbs — gentle float at different rates
+      orbEls.forEach(orb => {
+        const speed  = getSpeed(orb);
+        const drift  = scrollY * speed;
+        orb.style.transform = `translateY(${drift}px)`;
+      });
+
+      // 4. Mission strip — horizontal watermark drift
+      if (missionText && missionStrip) {
+        const rect   = missionStrip.getBoundingClientRect();
+        const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+        const drift  = center * -0.22;
+        const verticalNudge = center * 0.05;
+        missionText.style.transform =
+          `translate(calc(-50% + ${drift}px), calc(-50% + ${verticalNudge}px))`;
+      }
+
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(applyParallax);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', applyParallax, { passive: true });
+
+    // Initial call so nothing jumps on load
+    applyParallax();
+  </script>
+
+</body>
+</html>
